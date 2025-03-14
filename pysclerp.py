@@ -5,24 +5,38 @@ from scipy.spatial.transform import Rotation as R
 
 # NOTE: Quaternions -q and q represent the same rotation? Need to check this property!
 
-'''
-Function to compute the skew symmetric form of a matrix
-'''
+
+# Function to compute the skew symmetric form of a matrix
 def skew_symmetric():
+    '''
+        Input Args: 
+        Ouput:
+    '''
     return None
 
-'''
-Function to compute the inverse of a transformation matrix (element of SE(3))
-'''
+
+# Function to compute the inverse of a transformation matrix (element of SE(3))
 def inverse_trans_mat():
+    '''
+        Input Args: 
+        Ouput:
+    '''
     return None
 
-'''Function to replace nan values with zero'''
+# Function to replace nan values with zero
 def replace_nan_with_zeros(data):
+    '''
+        Input Args: 
+        Ouput:
+    '''
     return None
 
-'''Function to convert a rotation matrix to a quaternion'''
+# Function to convert a rotation matrix to a quaternion
 def rotm_to_quat(m):
+    '''
+        Input Args: 
+        Ouput:
+    '''
     t = np.trace(m)
     q = np.asarray([0.0, 0.0, 0.0, 0.0], dtype=np.float64)
 
@@ -50,19 +64,24 @@ def rotm_to_quat(m):
 
     return q
 
-'''
-Function to compute the conjugate of a quaternion:
-'''
+
+# Function to compute the conjugate of a quaternion:
 def conjugate_quat(quat):
+    '''
+        Input Args: 
+        Ouput:
+    '''
     q_0 = np.asarray(quat[0])
     q_r = quat[1:4]
     quat_star = np.reshape(np.append(q_0, -q_r+0.0), [1,4])
     return quat_star
 
-'''
-Function to compute conjugate of a unit dual quaternion
-'''
+# Function to compute conjugate of a unit dual quaternion
 def conjugate_dual_quat(dual_quat):
+    '''
+        Input Args: 
+        Ouput:
+    '''
     if dual_quat.shape[1] == 8:
         dual_quat_star = np.asarray([dual_quat[:, 0], -dual_quat[:, 1], -dual_quat[:, 2], -dual_quat[:, 3],
                                 dual_quat[:, 4], -dual_quat[:, 5], -dual_quat[:, 6], -dual_quat[:, 7]]) + 0
@@ -71,16 +90,21 @@ def conjugate_dual_quat(dual_quat):
         print("Incorrect input dimensions!")
     
 
-'''
-Function to convert a unit dual quaternion into a 4x4 transformation matrix (element of SE(3))
-'''
+# Function to convert a unit dual quaternion into a 4x4 transformation matrix (element of SE(3))
 def quat_to_tranform():
+    '''
+        Input Args: 
+        Ouput:
+    '''
     return None
 
-'''
-Function to compute product of two unit quaternions:
-'''
+
+# Function to compute product of two unit quaternions:
 def quat_prod(quat_1, quat_2):
+    '''
+        Input Args: 
+        Ouput:
+    '''
     if quat_1.shape[1] and quat_2.shape[1] == 4:
         a_0 = quat_1[:, 0]
         b_0 = quat_2[:, 0]
@@ -93,10 +117,13 @@ def quat_prod(quat_1, quat_2):
         print(f'Incorrect input dimension!')
     return prod + 0
 
-'''
-Function to compute dual quaternion product
-'''
+
+# Function to compute dual quaternion product
 def dual_quat_prod(quat_1, quat_2):
+    '''
+        Input Args: 
+        Ouput:
+    '''
     p = quat_1[:, 0:4]
     q = quat_1[:, 4:9]
     u = quat_2[:, 0:4]
@@ -104,11 +131,14 @@ def dual_quat_prod(quat_1, quat_2):
     prod = np.append(quat_prod(p, u), (quat_prod(q, u) + quat_prod(p, v)))
     return prod + 0
 
-'''
-Function to compute screw parameters given a unit dual quaternion
-'''
-def get_screw_params(unit_dual_quat):
 
+# Function to compute screw parameters given a unit dual quaternion 
+# corresponding to a relative transformation:
+def get_screw_params(unit_dual_quat):
+    '''
+        Input Args: 
+        Ouput:
+    '''
     # Extracting the real part of the unit dual quaternion:
     quat_r = unit_dual_quat[0:4]
     scalar_quat_r = quat_r[0]
@@ -138,11 +168,13 @@ def get_screw_params(unit_dual_quat):
     
     return [theta+0.0, point+0.0, u+0.0, p+0.0, m+0.0, d+0.0]
 
-'''
-Function to perform screw linear interpolation given unit dual quaternion representation of two poses in SE(3)
-'''
-def sclerp(R_init, p_init, R_final, p_final):
 
+# Function to perform screw linear interpolation given unit dual quaternion representation of two poses in SE(3)
+def sclerp(R_init, p_init, R_final, p_final):
+    '''
+        Input Args: 
+        Ouput:
+    '''
     # Convert the rotation matrix into a unit quaternion:
     r_init = R.from_matrix(R_init)
     R_init_quat = np.reshape(r_init.as_quat(scalar_first=True), [1,4])
