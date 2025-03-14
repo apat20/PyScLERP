@@ -17,6 +17,10 @@ Function to compute the inverse of a transformation matrix (element of SE(3))
 def inverse_trans_mat():
     return None
 
+'''Function to replace nan values with zero'''
+def replace_nan_with_zeros(data):
+    return None
+
 '''Function to convert a rotation matrix to a quaternion'''
 def rotm_to_quat(m):
     t = np.trace(m)
@@ -70,7 +74,7 @@ def conjugate_dual_quat(dual_quat):
 '''
 Function to convert a unit dual quaternion into a 4x4 transformation matrix (element of SE(3))
 '''
-def quat_2_tranform():
+def quat_to_tranform():
     return None
 
 '''
@@ -94,13 +98,9 @@ Function to compute dual quaternion product
 '''
 def dual_quat_prod(quat_1, quat_2):
     p = quat_1[:, 0:4]
-    print(f"shape of p: {p.shape}")
     q = quat_1[:, 4:9]
-    print(f"shape of q: {q.shape}")
     u = quat_2[:, 0:4]
-    print(f"shape of u: {u.shape}")
     v = quat_2[:, 4:9]
-    print(f"shape of v: {v.shape}")
     prod = np.append(quat_prod(p, u), (quat_prod(q, u) + quat_prod(p, v)))
     return prod + 0
 
@@ -108,7 +108,8 @@ def dual_quat_prod(quat_1, quat_2):
 Function to compute screw parameters given a unit dual quaternion
 '''
 def get_screw_params(unit_dual_quat):
-    # Extracting the real part of the dual quaternion:
+
+    # Extracting the real part of the unit dual quaternion:
     quat_r = unit_dual_quat[0:4]
     scalar_quat_r = quat_r[0]
     vector_quat_r = quat_r[1:4]
@@ -131,12 +132,49 @@ def get_screw_params(unit_dual_quat):
     p = p_quat[1:4]
     d = np.dot(p, u)
     m = 1/2*(np.cross(p, u) + (p - d*u)*(1/(np.tan(theta/2))))
-    return [theta+0.0, u+0.0, p+0.0, m+0.0, d+0.0]
+
+    # Computing the point on the unit vector. The unit vector along with the point form the screw axis.
+    point = np.cross(u, m)
+    
+    return [theta+0.0, point+0.0, u+0.0, p+0.0, m+0.0, d+0.0]
 
 '''
 Function to perform screw linear interpolation given unit dual quaternion representation of two poses in SE(3)
 '''
-def sclerp():
+def sclerp(R_init, p_init, R_final, p_final):
+
+    # Convert the rotation matrix into a unit quaternion:
+    r_init = R.from_matrix(R_init)
+    R_init_quat = np.reshape(r_init.as_quat(scalar_first=True), [1,4])
+    # Convert the position vector into a quaternion:
+    p_init_quat = np.reshape(np.append([0], p_init), [1,4])
+    # Unit dual quaternion of the initial pose:
+    g_init_unit_quat = np.reshape(np.append(R_init_quat, 1/2*quat_prod(p_init_quat, R_init_quat)), [1,8])
+
+    # Convert the rotation matrix into a unit quaternion:
+    r_final = R.from_matrix(R_final)
+    R_final_quat = np.reshape(r_final.as_quat(scalar_first=True), [1,4])
+    # Convert the position vector into a quaternion:
+    p_final_quat = np.reshape(np.append([0], p_final), [1,4])
+    # Unit dual quaternion of the initial pose:
+    g_final_unit_quat = np.reshape(np.append(R_final_quat, 1/2*quat_prod(p_final_quat, R_final_quat)), [1,8])
+
+    # Compute the unit dual quaternion corresponding to the relative transformation:
+    D = dual_quat_prod(conjugate_dual_quat(g_init_unit_quat), g_final_unit_quat)
+
+    print(f'Computing the screw parameters!')
+    # Computing the screw parameters:
+    screw_params =  get_screw_params(D)
+
+    print(f'Performing screw interpolation')
+    # tau is the interpolation parameter:
+    tau = np.arange(0, 1.1, 0.1)
+
+    # Initializing empty multidimensional arrays to save the computed intermediate interpolated poses:
+    R_array, p_array = np.zeros([3,3,len(tau)]), np.zeros([1,3,len(tau)])
+    C_dual_quat_array, g_array = np.zeros([8, len(tau)]), np.zeros([4,4,len(tau)])
+
+
     return None
 
 
@@ -172,15 +210,36 @@ if __name__ == '__main__':
 
     D = dual_quat_prod(conjugate_dual_quat(g_init_unit_quat), g_final_unit_quat)
 
-    breakpoint()
-
     print(f'Computing the screw parameters!')
-
     # Computing the screw parameters:
     screw_params =  get_screw_params(D)
 
+    breakpoint()
+
+    print(f'Performing screw interpolation')
+    # tau is the interpolation parameter:
+    tau = np.arange(0, 1.1, 0.1)
+
+    # Computing the point on the unit vector. The unit vector along with the point form the screw axis.
+    unit_vector = screw_params[1]
+    theta = screw_params[0]
+    point = np.cross(unit_vector, screw_params[3])
+
+    # Initializing empty multidimensional arrays to save the computed intermediate interpolated poses:
+    R_array, p_array = np.zeros([3,3,len(tau)]), np.zeros([1,3,len(tau)])
+    C_dual_quat_array, g_array = np.zeros([8, len(tau)]), np.zeros([4,4,len(tau)])
 
     breakpoint()
+
+    for i in range(len(tau)):
+        # Computing the real and the dual parts of the unit dual quaternion corresponding to the intermediate 
+        # configurations computed using the interpolation scheme.
+        # Equations (39) and (44) from Yan-Bin Jia's notes have been used for this purpose
+        print(tau[i])
+        D_r = [np.cos(tau[i]*theta/2), np.sin(tau[i]*theta/2)*unit_vector]
+        D_d = []
+
+
 
 
 
