@@ -148,6 +148,54 @@ def get_screw_params(g):
     '''
     return None
 
+
+def get_screw_params(g_init, g_final):
+    '''
+    Function to compute the screw parameters given two poses
+
+    Input Args: 
+        Two 4x4 poses in SE(3)
+
+    Returns:
+        A list containing the following parameters:
+            theta: Magnitude of screw motion
+            point: A point on the screw axis
+            u: Direction of the screw axis
+            pitch: Pitch of the screw
+            m: Moment of the screw
+            d: Magnitude of displacement along the screw
+            p_vect: Translation vector
+    '''
+    # Initial pose:
+    R_init, p_init = g_init[0:3, 0:3], g_init[0:3, 3]
+    
+    # Convert the rotation matrix into a unit quaternion:
+    r_init = R.from_matrix(R_init)
+    R_init_quat = np.reshape(r_init.as_quat(scalar_first=True), [1,4])
+    # Convert the position vector into a quaternion:
+    p_init_quat = np.reshape(np.append([0], p_init), [1,4])
+    # Unit dual quaternion of the initial pose:
+    g_init_unit_quat = np.reshape(np.append(R_init_quat, 1/2*quat_prod(p_init_quat, R_init_quat)), [1,8])
+    
+    # Final pose:
+    R_final, p_final = g_final[0:3, 0:3], g_final[0:3, 3]
+    
+    # Convert the rotation matrix into a unit quaternion:
+    r_final = R.from_matrix(R_final)
+    R_final_quat = np.reshape(r_final.as_quat(scalar_first=True), [1,4])
+    # Convert the position vector into a quaternion:
+    p_final_quat = np.reshape(np.append([0], p_final), [1,4])
+    # Unit dual quaternion of the initial pose:
+    g_final_unit_quat = np.reshape(np.append(R_final_quat, 1/2*quat_prod(p_final_quat, R_final_quat)), [1,8])
+    
+    # Compute the unit dual quaternion corresponding to the relative transformation:
+    D = np.reshape(dual_quat_prod(conjugate_dual_quat(g_init_unit_quat), g_final_unit_quat), [1,8])
+    
+    # Computing the screw parameters:
+    return get_screw_params_dual_quat(D, g_init, g_final)
+
+
+
 def get_screw_params_dual_quat(unit_dual_quat, g_init, g_final):
     '''
     Function to compute screw parameters given a unit dual quaternion corresponding to a relative transformation.
