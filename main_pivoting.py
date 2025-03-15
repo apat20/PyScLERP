@@ -22,7 +22,7 @@ def inverse_trans_mat():
     '''
     return None
 
-def plot_cube(face_vertices, faces, vertices):
+def plot_cube(vertices):
     '''
     Function for plotting a CUBE
 
@@ -78,6 +78,8 @@ if __name__ == '__main__':
     unit_vector = screw_params[2]
     m = screw_params[4]
 
+    print(screw_params)
+
     # Visualizing the initial and final pose along with all the interpolated poses:
     fig1 = plt.figure()
     ax1 = fig1.add_subplot(projection='3d')
@@ -94,7 +96,6 @@ if __name__ == '__main__':
 
     # Intermediate configurations:
     for i in range(R_array.shape[2]):
-        print(i)
         ax1 = plot_reference_frames(np.reshape(R_array[:, :, i], [3,3]), np.reshape(p_array[:, :, i], [3]), 2, 0.25, ax1)
 
     ax1.set_xlabel('X')
