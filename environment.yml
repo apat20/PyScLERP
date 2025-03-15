@@ -1,0 +1,44 @@
+name: pysclerp
+channels:
+  - conda-forge
+  - defaults
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+dependencies:
+  - blas
+  - bzip2
+  - ca-certificates
+  - libcxx
+  - libffi
+  - libgfortran
+  - libgfortran5
+  - libopenblas
+  - libsqlite
+  - libzlib
+  - llvm-openmp
+  - ncurses
+  - numpy
+  - numpy-base
+  - openssl
+  - pip
+  - python=3.10.13
+  - readline
+  - scipy=1.15.1
+  - setuptools
+  - sqlite
+  - tk
+  - tzdata
+  - wheel
+  - xz
+  - zlib
+  - pip:
+      - contourpy
+      - cycler
+      - fonttools
+      - kiwisolver
+      - matplotlib
+      - packaging
+      - pillow
+      - pyparsing
+      - python-dateutil
+      - six
