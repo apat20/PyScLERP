@@ -1,2 +1,2 @@
 # PyScLERP
-Python Library to perform Screw Linear Interpolation
+Python code to perform Screw Linear Interpolation an initial and a final pose. 
