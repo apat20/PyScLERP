@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-import quaternion_lib as ql
+import func.quaternion_lib as ql
 
 # Import config params
 import config.pivoting_cuboid
