@@ -14,7 +14,7 @@ VERTICES = np.asarray([np.asarray([X_L/2, -Y_W/2, -Z_H/2]), np.asarray([-X_L/2, 
 
 # Initial configuration:
 R_INIT = np.eye(3)
-p_INIT = np.zeros([1,3])
+P_INIT = np.zeros([1,3])
 G_INIT = np.eye(4)
 
 # Final configuration:
@@ -23,6 +23,11 @@ G_INIT = np.eye(4)
 R_FINAL = np.asarray([[0, 0, 1],
                         [0, 1, 0],
                         [-1, 0, 0]])
-p_FINAL = np.asarray([X_L/2 + Z_H/2, 0, -(Z_H/2 - X_L/2)])
+if Z_H > X_L:
+    P_FINAL = np.asarray([X_L/2 + Z_H/2, 0, -(Z_H/2 - X_L/2)])
+elif Z_H < X_L:
+    P_FINAL = np.asarray([X_L/2 + Z_H/2, 0, (X_L/2 - Z_H/2)])
+else:
+    P_FINAL = np.asarray([X_L/2 + Z_H/2, 0, 0])
 G_FINAL = np.eye(4)
-G_FINAL[0:3, 0:3], G_FINAL[0:3, 3] = R_FINAL, np.reshape(p_FINAL, [3])
+G_FINAL[0:3, 0:3], G_FINAL[0:3, 3] = R_FINAL, np.reshape(P_FINAL, [3])
