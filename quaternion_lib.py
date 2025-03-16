@@ -37,6 +37,24 @@ def rot_to_axis_angle():
     '''
     return None
 
+def axis_angle_to_rot(axis, angle):
+    '''
+    Function to get a rotation matrix given an axis and a angle
+
+    Input Args:
+
+    Returns:
+
+    '''
+    axis = axis/la.norm(axis)
+
+    omega = np.asarray([[0, -axis[2], axis[1]],
+                        [axis[2], 0, -axis[0]],
+                        [-axis[1], axis[0], 0]])
+
+    R = np.eye(3) + (math.sin(angle)*omega) + ((1 - math.cos(angle))*la.matrix_power(omega, 2))
+    return R
+
 def quat_to_rotm(quat):
     '''
     Function to convert a quaternion to a rotation matrix

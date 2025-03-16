@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import quaternion_lib as ql
+import config.pivoting_cuboid_config
 
 def plot_cube(vertices):
     '''
@@ -83,7 +84,8 @@ if __name__ == '__main__':
     g_final = np.eye(4)
     g_final[0:3, 0:3], g_final[0:3, 3] = R_final, np.reshape(p_final, [3])
 
-    [R_array, p_array, C_array, screw_params] = ql.sclerp(R_init, p_init, R_final, p_final)
+    [R_array, p_array, C_array, screw_params] = ql.sclerp(config.pivoting_cuboid_config.R_INIT, config.pivoting_cuboid_config.p_INIT, 
+                                                          config.pivoting_cuboid_config.R_FINAL, config.pivoting_cuboid_config.p_FINAL)
 
     # Extracting the screw parameters:
     theta = screw_params[0]
@@ -104,10 +106,10 @@ if __name__ == '__main__':
     ax1.quiver(point[0], point[1], point[2], 2*unit_vector[0], 2*unit_vector[1], 2*unit_vector[2], color = "r", arrow_length_ratio = 0.55)
 
     # Initial configuration:
-    ax1 = plot_reference_frames(R_init, np.reshape(p_init, [3]), 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.pivoting_cuboid_config.R_INIT, np.reshape(config.pivoting_cuboid_config.p_INIT, [3]), 3, 0.5, ax1)
 
     # Final configuration:
-    ax1 = plot_reference_frames(R_final, p_final, 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.pivoting_cuboid_config.R_FINAL, config.pivoting_cuboid_config.p_FINAL, 3, 0.5, ax1)
 
     # Intermediate configurations:
     for i in range(R_array.shape[2]):
@@ -125,11 +127,11 @@ if __name__ == '__main__':
     ax2.grid(False)
 
     # Plot the cuboid at initial pose:
-    faces = plot_cube(vertices)
+    faces = plot_cube(config.pivoting_cuboid_config.VERTICES)
     ax2.add_collection3d(Poly3DCollection(faces, linewidths=1, edgecolors='b', alpha=.25))
     
     # Transform and plot the cuboid at the final pose:
-    transformed_vertices_final = transform_vertices(g_final, vertices)
+    transformed_vertices_final = transform_vertices(config.pivoting_cuboid_config.G_FINAL, config.pivoting_cuboid_config.VERTICES)
     transformed_faces = plot_cube(transformed_vertices_final)
     ax2.add_collection3d(Poly3DCollection(transformed_faces, linewidths=1, edgecolors='b', alpha=.25))
 
@@ -138,10 +140,10 @@ if __name__ == '__main__':
     ax2.quiver(point[0], point[1], point[2], 2*unit_vector[0], 2*unit_vector[1], 2*unit_vector[2], color = "r", arrow_length_ratio = 0.55)
 
     # Initial configuration:
-    ax2 = plot_reference_frames(R_init, np.reshape(p_init, [3]), 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.pivoting_cuboid_config.R_INIT, np.reshape(config.pivoting_cuboid_config.p_INIT, [3]), 3, 0.5, ax2)
 
     # Final configuration:
-    ax2 = plot_reference_frames(R_final, p_final, 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.pivoting_cuboid_config.R_FINAL, config.pivoting_cuboid_config.p_FINAL, 3, 0.5, ax2)
 
     # Intermediate configurations:
     for i in range(R_array.shape[2]):
