@@ -58,13 +58,22 @@ def plot_reference_frames(R, p, scale_value, length_value, ax):
 
 if __name__ == '__main__':
 
-    print(f'Inside the main function!')
+    # Dimensions of the cuboid:
+    X_LENGTH = 0.3
+    Y_LENGTH = 0.4
+    Z_HEIGHT = 0.5
+
+    # Vertices of the cuboid based on the dimensions. All the vertices are 
+    # expressed with respect to the object's body reference frame:
+
 
     # Initial configuration:
     R_init = np.eye(3)
     p_init = np.zeros([1,3])
 
     # Final configuration:
+    # NOTE: For the pivoting moiton the final configuration is computed based on the dimensions
+    # of the cuboid:
     R_final = np.asarray([[1, 0, 0],
                           [0, 0, 1],
                           [0, -1, 0]])
@@ -78,7 +87,7 @@ if __name__ == '__main__':
     unit_vector = screw_params[2]
     m = screw_params[4]
 
-    print(screw_params)
+    print(f"Screw Parameters: {screw_params}")
 
     # Visualizing the initial and final pose along with all the interpolated poses:
     fig1 = plt.figure()

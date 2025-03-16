@@ -5,6 +5,7 @@ from numpy import linalg as la
 import math 
 from scipy.spatial.transform import Rotation as R
 
+
 def skew_symmetric():
     '''
     Function to compute the skew symmetric form of a matrix
@@ -195,8 +196,7 @@ def get_screw_params(g_init, g_final):
     return get_screw_params_dual_quat(D, g_init, g_final)
 
 
-
-def get_screw_params_dual_quat(unit_dual_quat, g_init, g_final):
+def get_screw_params_dual_quat(unit_dual_quat):
     '''
     Function to compute screw parameters given a unit dual quaternion corresponding to a relative transformation.
     
@@ -290,7 +290,7 @@ def sclerp(R_init, p_init, R_final, p_final):
 
     print(f'Computing the screw parameters!')
     # Computing the screw parameters:
-    screw_params =  get_screw_params_dual_quat(D, g_init, g_final)
+    screw_params =  get_screw_params_dual_quat(D)
 
     print(f'Performing screw interpolation')
     # tau is the interpolation parameter:
