@@ -15,6 +15,7 @@ class unit_quaternion:
         self.q_0 = self.quat[:, 0]
         # Vector part of the quaternion:
         self.q_r = np.multiply(self.quat[:, 1:4], -1)
+        # Rotation matrix corresponding to the quaternion.
         self.rotm = None
 
     def quat_to_rotm(self):

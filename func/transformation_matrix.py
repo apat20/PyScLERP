@@ -5,9 +5,9 @@ import numpy as np
 
 class transformation_matrix:
 
-    def __init__(self):
+    def __init__(self, matrix):
         # 4x4 transformation matrix, which is an element of SE(3)
-        self.trans_mat = None
+        self.trans_mat = matrix
         # 3x3 rotation matrix, which is an element of SO(3)
         self.R = self.trans_mat[0:3, 0:3]
          # 3x1 position vector, element of R^3
@@ -43,4 +43,4 @@ class transformation_matrix:
             ax.quiver(self.p[0, :], self.p[1, :], self.p[2, :], scale_value*self.R[0, 2], scale_value*self.R[1, 2], scale_value*self.R[2, 2], color = "b", arrow_length_ratio = length_value)
             return ax
         else:
-            print('Incorrect input dimensiosn')
+            print('Incorrect input dimensions')
