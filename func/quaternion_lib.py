@@ -329,7 +329,7 @@ def sclerp(R_init, p_init, R_final, p_final):
 
     # Initializing empty multidimensional arrays to save the computed intermediate interpolated poses:
     R_array, p_array = np.zeros([3,3,len(tau)]), np.zeros([3,1,len(tau)])
-    C_dual_quat_array, g_array = np.zeros([8, len(tau)]), np.zeros([4,4,len(tau)])
+    C_dual_quat_array, G_array = np.zeros([8, len(tau)]), np.zeros([4,4,len(tau)])
 
     for i in range(len(tau)):
         # Computing the real and the dual parts of the unit dual quaternion corresponding to the intermediate 
@@ -344,11 +344,11 @@ def sclerp(R_init, p_init, R_final, p_final):
         # Computing the rotation matrix and position vector for a particular configuration from its corresponding 
         # unit dual quaternion representation:
         g = quat_to_tranform(np.reshape(C_dual_quat_array[:, i], [1, 8]))
+        G_array[0:3, 0:3, i], G_array[0:3, 3, i] = np.reshape(g[0], [3,3]), np.reshape(g[1], [3])
         R_array[:, :, i], p_array[:, :, i] = np.reshape(g[0], [3,3]), np.reshape(g[1], [3,1])
-        # print(f"Rotation matrix: {R_array[:, :, i]}")
-        # print(f"position vector: {p_array[:, :, i]}")
+        
 
-    return [R_array, p_array, C_dual_quat_array, screw_params]
+    return [R_array, p_array, C_dual_quat_array, G_array, screw_params]
 
 
 
