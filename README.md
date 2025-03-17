@@ -1,5 +1,5 @@
 # PyScLERP
-Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERp). 
+Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP). 
 
 
 # Installation 
@@ -24,7 +24,7 @@ Current implementation contains to sample tasks, pivoting a cuboid about one of 
 1. Open a terminal and activate the conda environment
 
 ```
-conda activate minimal_env
+conda activate pysclerp
 ```
 
 2. Type the following command to execute and visualize the results of pivoting the cuboid:
@@ -37,15 +37,13 @@ python main_pivoting.py
    
 ``` 
 python main_sliding.py 
+```
 
 ** NOTE: ** This repository is under-development and we plan to add more functionality and examples where the task space path consists of multiple constant screw motions. 
 
 If you find this work useful please site our papers: 
 
-Citation:
-
 ```
-
 @inproceedings{sarker2020screw,
   title={On screw linear interpolation for point-to-point path planning},
   author={Sarker, Anik and Sinha, Anirban and Chakraborty, Nilanjan},
@@ -54,6 +52,7 @@ Citation:
   year={2020},
   organization={IEEE}
 }
+```
 
 @inproceedings{fakhari2021motion,
   title={Motion and force planning for manipulating heavy objects by pivoting},
