@@ -2,6 +2,30 @@
 Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP). Examples of using ScLERP for computing a path in SE(3) for the tasks of pivoting and sliding a cuboid can be seen below:
 ![](https://github.com/apat20/PyScLERP/blob/main/gifs/PyScLERP_gifs_v1.gif)
 
+For more details please refer to our papers and if you find them useful please cite our work: 
+
+```
+@inproceedings{sarker2020screw,
+  title={On screw linear interpolation for point-to-point path planning},
+  author={Sarker, Anik and Sinha, Anirban and Chakraborty, Nilanjan},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={9480--9487},
+  year={2020},
+  organization={IEEE}
+}
+```
+
+```
+@inproceedings{fakhari2021motion,
+  title={Motion and force planning for manipulating heavy objects by pivoting},
+  author={Fakhari, Amin and Patankar, Aditya and Chakraborty, Nilanjan},
+  booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={9393--9400},
+  year={2021},
+  organization={IEEE}
+}
+```
+
 # Installation 
 
 1. Clone the repository
@@ -40,30 +64,6 @@ python main_sliding.py
 ```
 
 **NOTE:** This repository is under-development and we plan to add more functionality and examples where the task space path consists of multiple constant screw motions. For further inquiries contact:  Aditya Patankar (aditya.patankar@stonybrook.edu)
-
-If you find this work useful please cite our papers: 
-
-```
-@inproceedings{sarker2020screw,
-  title={On screw linear interpolation for point-to-point path planning},
-  author={Sarker, Anik and Sinha, Anirban and Chakraborty, Nilanjan},
-  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  pages={9480--9487},
-  year={2020},
-  organization={IEEE}
-}
-```
-
-```
-@inproceedings{fakhari2021motion,
-  title={Motion and force planning for manipulating heavy objects by pivoting},
-  author={Fakhari, Amin and Patankar, Aditya and Chakraborty, Nilanjan},
-  booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  pages={9393--9400},
-  year={2021},
-  organization={IEEE}
-}
-```
 
 # References: 
 
