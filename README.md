@@ -41,7 +41,7 @@ python main_sliding.py
 
 **NOTE:** This repository is under-development and we plan to add more functionality and examples where the task space path consists of multiple constant screw motions. For further inquiries contact:  Aditya Patankar (aditya.patankar@stonybrook.edu)
 
-If you find this work useful please site our papers: 
+If you find this work useful please cite our papers: 
 
 ```
 @inproceedings{sarker2020screw,
