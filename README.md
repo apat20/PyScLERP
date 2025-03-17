@@ -1,6 +1,5 @@
 # PyScLERP
-Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP). 
-
+Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP). Examples of using ScLERP for computing a path in SE(3) for the tasks of pivoting and sliding a cuboid can be seen in the following [animation](/gifs/PyScLERP_gifs_v1.gif):
 
 # Installation 
 
@@ -67,7 +66,6 @@ If you find this work useful please site our papers:
 
 # References: 
 
-```
 1. Sarker, Anik, Anirban Sinha, and Nilanjan Chakraborty. "On screw linear interpolation for point-to-point path planning." 2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2020.
 
 2. Fakhari, Amin, Aditya Patankar, and Nilanjan Chakraborty. "Motion and force planning for manipulating heavy objects by pivoting." 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2021.
@@ -75,4 +73,4 @@ If you find this work useful please site our papers:
 3. Murray, Richard M., Zexiang Li, and S. Shankar Sastry. A mathematical introduction to robotic manipulation. CRC press, 2017.
 
 4. Jia, Yan-Bin. "Dual quaternions." Iowa State University: Ames, IA, USA (2013): 1-15.
-```
+
