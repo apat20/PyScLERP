@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from matplotlib.animation import FuncAnimation
 
 # Importing quaternion functionalities
 import func.quaternion_lib as ql
