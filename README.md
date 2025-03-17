@@ -1,5 +1,6 @@
 # PyScLERP
-Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP). Examples of using ScLERP for computing a path in SE(3) for the tasks of pivoting and sliding a cuboid can be seen in the following [animation](https://github.com/apat20/PyScLERP/blob/main/gifs/PyScLERP_gifs_v1.gif):
+Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP). Examples of using ScLERP for computing a path in SE(3) for the tasks of pivoting and sliding a cuboid can be seen below 
+![](https://github.com/apat20/PyScLERP/blob/main/gifs/PyScLERP_gifs_v1.gif):
 
 # Installation 
 
