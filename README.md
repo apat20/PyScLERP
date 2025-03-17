@@ -39,7 +39,7 @@ python main_pivoting.py
 python main_sliding.py 
 ```
 
-** NOTE: ** This repository is under-development and we plan to add more functionality and examples where the task space path consists of multiple constant screw motions. 
+** NOTE: ** This repository is under-development and we plan to add more functionality and examples where the task space path consists of multiple constant screw motions. For further inquiries contact:  Aditya Patankar (aditya.patankar@stonybrook.edu)
 
 If you find this work useful please site our papers: 
 
@@ -54,6 +54,7 @@ If you find this work useful please site our papers:
 }
 ```
 
+```
 @inproceedings{fakhari2021motion,
   title={Motion and force planning for manipulating heavy objects by pivoting},
   author={Fakhari, Amin and Patankar, Aditya and Chakraborty, Nilanjan},
