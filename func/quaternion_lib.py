@@ -6,17 +6,23 @@ import math
 from scipy.spatial.transform import Rotation as R
 
 
-def skew_symmetric():
+def skew_symmetric(p):
     '''
-    Function to compute the skew symmetric form of a matrix
+    Function to compute the skew symmetric matrix of a vector
 
     Input Args: 
     
     Returns:
     '''
-    return None
+    if p.shape == (3,1):
+        p_hat = np.asarray([[0, float(-p[2]), float(p[1])],
+                            [float(p[2]), 0,  float(-p[0])],
+                            [float(-p[1]), float(p[0]), 0]])
+    else:
+        print('Invalid input dimensions!')
+    return p_hat
 
-def inverse_trans_mat():
+def inverse_trans_mat(mat):
     '''
     Function to compute the inverse of a transformation matrix (element of SE(3))
 
@@ -24,9 +30,12 @@ def inverse_trans_mat():
     
     Returns:
     '''
-    return None
+    inv_mat = np.eye(4)
+    inv_mat[0:3, 0:3] = mat[0:3, 0:3].T
+    inv_mat[0:3, 3] = -np.dot(inv_mat[0:3, 0:3], mat[0:3, 3])
+    return inv_mat+0.0
 
-def rot_to_axis_angle():
+def rot_to_axis_angle(rot):
     '''
     Function to compute the axis angle representation given a rotation matrix
 
