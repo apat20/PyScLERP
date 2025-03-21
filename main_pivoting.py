@@ -18,12 +18,13 @@ if __name__ == '__main__':
                                                           config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL)
 
     # Extracting the screw parameters:
+    # NOTE: The screw parameters are always computed with respect to the initial configuration given as input to ScLERP.
     theta = screw_params[0]
     point = screw_params[1]
     unit_vector = screw_params[2]
     m = screw_params[4]
 
-    print(f"Screw Parameters:\n {screw_params}")
+    print(f"Screw Parameters with respect to the initial configuration:\n {screw_params}")
 
     ########## VISUALIZATION ########## 
 
