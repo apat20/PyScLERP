@@ -5,7 +5,7 @@ Python code to compute a path in SE(3), given an initial and a final pose, using
 Please note that both the examples above are single constant screw motions. The key advantage of using Screw Linear Interpolation (ScLERP) is that it allows to satisfy the task-related constraints kinematically. For example, while pivoting a cuboid about one of its edges, we have to ensure that edge maintains contact with the environment throughout the motion. More generally, as per Chasles' theorem, any rigid body motion in SE(3) can be approximated arbitrarily closely by a sequence of constant screw motions [3].
 Results of using ScLERP to compute a task space path for a manipulation task represented as a sequence of constant screw motions is shown below: 
 
-<!-- ![](https://github.com/apat20/PyScLERP/blob/main/gifs/P) -->
+![](https://github.com/apat20/PyScLERP/blob/main/gifs/Plan_Skeleton.gif)
 
 In the above example, the cuboid has to be pivoted, picked, transferred and finally placed. And each of the individual motions is a constant screw motion.
 
