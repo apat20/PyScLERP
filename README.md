@@ -2,9 +2,13 @@
 Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP) also known as Dual Quaternion Interpolation. Examples of using ScLERP for computing a path in SE(3) for the tasks of pivoting and sliding a cuboid can be seen below:
 ![](https://github.com/apat20/PyScLERP/blob/main/gifs/PyScLERP_gifs_v1.gif)
 
-Please note that both the examples above are single constant screw motions. The key advantage of using Screw Linear Interpolation (ScLERP) is that it allows to satisfy the task-related constraints kinematically. For example, while pivoting a cuboid about one of its edges, we have to ensure that edge maintains contact with the environment throughout the motion. 
+Please note that both the examples above are single constant screw motions. The key advantage of using Screw Linear Interpolation (ScLERP) is that it allows to satisfy the task-related constraints kinematically. For example, while pivoting a cuboid about one of its edges, we have to ensure that edge maintains contact with the environment throughout the motion. More generally, as per Chasles' theorem, any rigid body motion in SE(3) can be approximated arbitrarily closely by a sequence of constant screw motions [3].
+Results of using ScLERP to compute a task space path for a manipulation task represented as a sequence of constant screw motions is shown below: 
 
-More generally, as per Chasles' theorem, any rigid body motion in SE(3) can be approximated arbitrarily closely by a sequence of constant screw motions [3].
+<!-- ![](https://github.com/apat20/PyScLERP/blob/main/gifs/P) -->
+
+In the above example, the cuboid has to be pivoted, picked, transferred and finally placed. And each of the individual motions is a constant screw motion.
+
 For more details please refer to our papers and if you find them useful please cite our work: 
 
 ```
