@@ -1,7 +1,10 @@
 # PyScLERP
-Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP). Examples of using ScLERP for computing a path in SE(3) for the tasks of pivoting and sliding a cuboid can be seen below:
+Python code to compute a path in SE(3), given an initial and a final pose, using Screw Linear Interpolation (ScLERP) also known as Dual Quaternion Interpolation. Examples of using ScLERP for computing a path in SE(3) for the tasks of pivoting and sliding a cuboid can be seen below:
 ![](https://github.com/apat20/PyScLERP/blob/main/gifs/PyScLERP_gifs_v1.gif)
 
+Please note that both the examples above are single constant screw motions. The key advantage of using Screw Linear Interpolation (ScLERP) is that it allows to satisfy the task-related constraints kinematically. For example, while pivoting a cuboid about one of its edges, we have to ensure that edge maintains contact with the environment throughout the motion. 
+
+More generally, as per Chasles' theorem, any rigid body motion in SE(3) can be approximated arbitrarily closely by a sequence of constant screw motions [3].
 For more details please refer to our papers and if you find them useful please cite our work: 
 
 ```
@@ -16,12 +19,46 @@ For more details please refer to our papers and if you find them useful please c
 ```
 
 ```
+@inproceedings{laha2021point,
+  title={Point-to-point path planning based on user guidance and screw linear interpolation},
+  author={Laha, Riddhiman and Rao, Anjali and Figueredo, Luis FC and Chang, Qing and Haddadin, Sami and Chakraborty, Nilanjan},
+  booktitle={International Design Engineering Technical Conferences and Computers and Information in Engineering Conference},
+  volume={85451},
+  pages={V08BT08A010},
+  year={2021},
+  organization={American Society of Mechanical Engineers}
+}
+```
+
+```
 @inproceedings{fakhari2021motion,
   title={Motion and force planning for manipulating heavy objects by pivoting},
   author={Fakhari, Amin and Patankar, Aditya and Chakraborty, Nilanjan},
   booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
   pages={9393--9400},
   year={2021},
+  organization={IEEE}
+}
+```
+
+```
+@inproceedings{mahalingam2023human,
+  title={Human-guided planning for complex manipulation tasks using the screw geometry of motion},
+  author={Mahalingam, Dasharadhan and Chakraborty, Nilanjan},
+  booktitle={2023 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={7851--7857},
+  year={2023},
+  organization={IEEE}
+}
+```
+
+```
+@inproceedings{patankar2023task,
+  title={Task-oriented grasping with point cloud representation of objects},
+  author={Patankar, Aditya and Phi, Khiem and Mahalingam, Dasharadhan and Chakraborty, Nilanjan and Ramakrishnan, IV},
+  booktitle={2023 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={6853--6860},
+  year={2023},
   organization={IEEE}
 }
 ```
@@ -61,6 +98,12 @@ python main_pivoting.py
    
 ``` 
 python main_sliding.py 
+```
+
+4. Type the following command to execute and visualize the results of the plan skeletion 1 - {pivot, pick-up, transfer, place}
+
+``` 
+python main_skeleton.py 
 ```
 
 **NOTE:** This repository is under-development and we plan to add more functionality and examples where the task space path consists of multiple constant screw motions. For further inquiries contact:  Aditya Patankar (aditya.patankar@stonybrook.edu)
