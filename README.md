@@ -7,7 +7,8 @@ Results of using ScLERP to compute a task space path for a manipulation task rep
 
 ![](https://github.com/apat20/PyScLERP/blob/main/gifs/Plan_Skeleton.gif)
 
-In the above example, the cuboid has to be pivoted, picked, transferred and finally placed. And each of the individual motions is a constant screw motion.
+In the above example, the cuboid has to be pivoted, picked, transferred and finally placed. And each of the individual motions is a constant screw motion and the input
+is the pose of the cuboids at the configurations shown in blue. We use ScLERP to compute the intermediate configurations of the cuboid shown in grey. 
 
 For more details please refer to our papers and if you find them useful please cite our work: 
 
