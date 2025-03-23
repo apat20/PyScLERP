@@ -9,7 +9,9 @@ import func.quaternion_lib as ql
 import config.plan_skeleton_1
 
 # Import helper functions
-import func._helper_functions as hlp
+from func.utils import plot_cube
+from func.utils import plot_reference_frames
+from func.utils import transform_vertices
 
 if __name__ == '__main__':
 
@@ -74,35 +76,35 @@ if __name__ == '__main__':
     ax1.grid(False)
     
     # Initial configuration:
-    ax1 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INIT, np.reshape(config.plan_skeleton_1.P_INIT, [3]), 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.plan_skeleton_1.R_INIT, np.reshape(config.plan_skeleton_1.P_INIT, [3]), 3, 0.5, ax1)
     
     # Intermediate configuration 1:
-    ax1 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_1, config.plan_skeleton_1.P_INTER_1, 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.plan_skeleton_1.R_INTER_1, config.plan_skeleton_1.P_INTER_1, 3, 0.5, ax1)
 
     # Intermediate configuration 2:
-    ax1 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2, 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2, 3, 0.5, ax1)
 
     # Intermediate configuration 3:
-    ax1 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3, 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3, 3, 0.5, ax1)
 
     # Final configuration:
-    ax1 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_4, config.plan_skeleton_1.P_INTER_4, 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.plan_skeleton_1.R_INTER_4, config.plan_skeleton_1.P_INTER_4, 3, 0.5, ax1)
 
     # Intermediate configurations for the first constant screw motion:
     for i in range(R_array_1.shape[2]):
-        ax1 = hlp.plot_reference_frames(np.reshape(R_array_1[:, :, i], [3,3]), np.reshape(p_array_1[:, :, i], [3]), 2, 0.25, ax1)
+        ax1 = plot_reference_frames(np.reshape(R_array_1[:, :, i], [3,3]), np.reshape(p_array_1[:, :, i], [3]), 2, 0.25, ax1)
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_2.shape[2]):
-        ax1 = hlp.plot_reference_frames(np.reshape(R_array_2[:, :, i], [3,3]), np.reshape(p_array_2[:, :, i], [3]), 2, 0.25, ax1)
+        ax1 = plot_reference_frames(np.reshape(R_array_2[:, :, i], [3,3]), np.reshape(p_array_2[:, :, i], [3]), 2, 0.25, ax1)
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_3.shape[2]):
-        ax1 = hlp.plot_reference_frames(np.reshape(R_array_3[:, :, i], [3,3]), np.reshape(p_array_3[:, :, i], [3]), 2, 0.25, ax1)
+        ax1 = plot_reference_frames(np.reshape(R_array_3[:, :, i], [3,3]), np.reshape(p_array_3[:, :, i], [3]), 2, 0.25, ax1)
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_4.shape[2]):
-        ax1 = hlp.plot_reference_frames(np.reshape(R_array_4[:, :, i], [3,3]), np.reshape(p_array_4[:, :, i], [3]), 2, 0.25, ax1)
+        ax1 = plot_reference_frames(np.reshape(R_array_4[:, :, i], [3,3]), np.reshape(p_array_4[:, :, i], [3]), 2, 0.25, ax1)
 
     ax1.set_xlabel('X')
     ax1.set_ylabel('Y')
@@ -117,59 +119,59 @@ if __name__ == '__main__':
     ax2.grid(False)
 
     # Plot the cuboid at initial pose:
-    faces = hlp.plot_cube(config.plan_skeleton_1.VERTICES)
+    faces = plot_cube(config.plan_skeleton_1.VERTICES)
     ax2.add_collection3d(Poly3DCollection(faces, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the end of the first constant screw motion:
-    transformed_vertices_inter_1 = hlp.transform_vertices(config.plan_skeleton_1.G_INTER_1, config.plan_skeleton_1.VERTICES)
-    transformed_faces_1 = hlp.plot_cube(transformed_vertices_inter_1)
+    transformed_vertices_inter_1 = transform_vertices(config.plan_skeleton_1.G_INTER_1, config.plan_skeleton_1.VERTICES)
+    transformed_faces_1 = plot_cube(transformed_vertices_inter_1)
     ax2.add_collection3d(Poly3DCollection(transformed_faces_1, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the end of the second constant screw motion:
-    transformed_vertices_inter_2 = hlp.transform_vertices(config.plan_skeleton_1.G_INTER_2, config.plan_skeleton_1.VERTICES)
-    transformed_faces_2 = hlp.plot_cube(transformed_vertices_inter_2)
+    transformed_vertices_inter_2 = transform_vertices(config.plan_skeleton_1.G_INTER_2, config.plan_skeleton_1.VERTICES)
+    transformed_faces_2 = plot_cube(transformed_vertices_inter_2)
     ax2.add_collection3d(Poly3DCollection(transformed_faces_2, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the end of the third constant screw motion:
-    transformed_vertices_inter_3 = hlp.transform_vertices(config.plan_skeleton_1.G_INTER_3, config.plan_skeleton_1.VERTICES)
-    transformed_faces_3 = hlp.plot_cube(transformed_vertices_inter_3)
+    transformed_vertices_inter_3 = transform_vertices(config.plan_skeleton_1.G_INTER_3, config.plan_skeleton_1.VERTICES)
+    transformed_faces_3 = plot_cube(transformed_vertices_inter_3)
     ax2.add_collection3d(Poly3DCollection(transformed_faces_3, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the end of the fourth constant screw motion:
-    transformed_vertices_inter_4 = hlp.transform_vertices(config.plan_skeleton_1.G_INTER_4, config.plan_skeleton_1.VERTICES)
-    transformed_faces_4 = hlp.plot_cube(transformed_vertices_inter_4)
+    transformed_vertices_inter_4 = transform_vertices(config.plan_skeleton_1.G_INTER_4, config.plan_skeleton_1.VERTICES)
+    transformed_faces_4 = plot_cube(transformed_vertices_inter_4)
     ax2.add_collection3d(Poly3DCollection(transformed_faces_4, linewidths=1, edgecolors='b', alpha=.25))
 
     # Initial configuration:
-    ax2 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INIT, np.reshape(config.plan_skeleton_1.P_INIT, [3]), 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.plan_skeleton_1.R_INIT, np.reshape(config.plan_skeleton_1.P_INIT, [3]), 3, 0.5, ax2)
     
     # Intermediate configuration 1:
-    ax2 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_1, 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_1, 3, 0.5, ax2)
 
     # Intermediate configuration 2:
-    ax2 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2, 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2, 3, 0.5, ax2)
 
     # Intermediate configuration 3:
-    ax2 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3, 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3, 3, 0.5, ax2)
 
     # Final configuration:
-    ax2 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_4, config.plan_skeleton_1.P_INTER_4, 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.plan_skeleton_1.R_INTER_4, config.plan_skeleton_1.P_INTER_4, 3, 0.5, ax2)
     
     # Intermediate configurations for the first constant screw motion:
     for i in range(R_array_1.shape[2]):
-        ax2 = hlp.plot_reference_frames(np.reshape(R_array_1[:, :, i], [3,3]), np.reshape(p_array_1[:, :, i], [3]), 2, 0.25, ax2)
+        ax2 = plot_reference_frames(np.reshape(R_array_1[:, :, i], [3,3]), np.reshape(p_array_1[:, :, i], [3]), 2, 0.25, ax2)
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_2.shape[2]):
-        ax2 = hlp.plot_reference_frames(np.reshape(R_array_2[:, :, i], [3,3]), np.reshape(p_array_2[:, :, i], [3]), 2, 0.25, ax2)
+        ax2 = plot_reference_frames(np.reshape(R_array_2[:, :, i], [3,3]), np.reshape(p_array_2[:, :, i], [3]), 2, 0.25, ax2)
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_3.shape[2]):
-        ax2 = hlp.plot_reference_frames(np.reshape(R_array_3[:, :, i], [3,3]), np.reshape(p_array_3[:, :, i], [3]), 2, 0.25, ax2)
+        ax2 = plot_reference_frames(np.reshape(R_array_3[:, :, i], [3,3]), np.reshape(p_array_3[:, :, i], [3]), 2, 0.25, ax2)
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_4.shape[2]):
-        ax2 = hlp.plot_reference_frames(np.reshape(R_array_4[:, :, i], [3,3]), np.reshape(p_array_4[:, :, i], [3]), 2, 0.25, ax2)
+        ax2 = plot_reference_frames(np.reshape(R_array_4[:, :, i], [3,3]), np.reshape(p_array_4[:, :, i], [3]), 2, 0.25, ax2)
 
     ax2.set_xlabel('X')
     ax2.set_ylabel('Y')
@@ -184,74 +186,74 @@ if __name__ == '__main__':
     ax3.grid(False)
 
     # Initial configuration:
-    ax3 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INIT, np.reshape(config.plan_skeleton_1.P_INIT, [3]), 3, 0.5, ax3)
+    ax3 = plot_reference_frames(config.plan_skeleton_1.R_INIT, np.reshape(config.plan_skeleton_1.P_INIT, [3]), 3, 0.5, ax3)
     
     # Intermediate configuration 1:
-    ax3 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_1, config.plan_skeleton_1.P_INTER_1, 3, 0.5, ax3)
+    ax3 = plot_reference_frames(config.plan_skeleton_1.R_INTER_1, config.plan_skeleton_1.P_INTER_1, 3, 0.5, ax3)
 
     # Intermediate configuration 2:
-    ax3 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2, 3, 0.5, ax3)
+    ax3 = plot_reference_frames(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2, 3, 0.5, ax3)
 
     # Intermediate configuration 3:
-    ax3 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3, 3, 0.5, ax3)
+    ax3 = plot_reference_frames(config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3, 3, 0.5, ax3)
 
     # Final configuration:
-    ax3 = hlp.plot_reference_frames(config.plan_skeleton_1.R_INTER_4, config.plan_skeleton_1.P_INTER_4, 3, 0.5, ax3)
+    ax3 = plot_reference_frames(config.plan_skeleton_1.R_INTER_4, config.plan_skeleton_1.P_INTER_4, 3, 0.5, ax3)
     
    # Intermediate configurations for the first constant screw motion:
     for i in range(R_array_1.shape[2]):
-        ax3 = hlp.plot_reference_frames(np.reshape(R_array_1[:, :, i], [3,3]), np.reshape(p_array_1[:, :, i], [3]), 2, 0.25, ax3)
+        ax3 = plot_reference_frames(np.reshape(R_array_1[:, :, i], [3,3]), np.reshape(p_array_1[:, :, i], [3]), 2, 0.25, ax3)
         # Transform and plot the cuboid at the end of the first constant screw motion:
-        transformed_vertices_inter_1 = hlp.transform_vertices(G_array_1[:, :, i], config.plan_skeleton_1.VERTICES)
-        transformed_faces_1 = hlp.plot_cube(transformed_vertices_inter_1)
+        transformed_vertices_inter_1 = transform_vertices(G_array_1[:, :, i], config.plan_skeleton_1.VERTICES)
+        transformed_faces_1 = plot_cube(transformed_vertices_inter_1)
         ax3.add_collection3d(Poly3DCollection(transformed_faces_1, linewidths=1, facecolors='lightgrey', edgecolors='grey', alpha=.25))
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_2.shape[2]):
-        ax3 = hlp.plot_reference_frames(np.reshape(R_array_2[:, :, i], [3,3]), np.reshape(p_array_2[:, :, i], [3]), 2, 0.25, ax3)
+        ax3 = plot_reference_frames(np.reshape(R_array_2[:, :, i], [3,3]), np.reshape(p_array_2[:, :, i], [3]), 2, 0.25, ax3)
         # Transform and plot the cuboid at the end of the first constant screw motion:
-        transformed_vertices_inter_2 = hlp.transform_vertices(G_array_2[:, :, i], config.plan_skeleton_1.VERTICES)
-        transformed_faces_2 = hlp.plot_cube(transformed_vertices_inter_2)
+        transformed_vertices_inter_2 = transform_vertices(G_array_2[:, :, i], config.plan_skeleton_1.VERTICES)
+        transformed_faces_2 = plot_cube(transformed_vertices_inter_2)
         ax3.add_collection3d(Poly3DCollection(transformed_faces_2, linewidths=1, facecolors='lightgrey', edgecolors='grey', alpha=.25))
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_3.shape[2]):
-        ax3 = hlp.plot_reference_frames(np.reshape(R_array_3[:, :, i], [3,3]), np.reshape(p_array_3[:, :, i], [3]), 2, 0.25, ax3)
+        ax3 = plot_reference_frames(np.reshape(R_array_3[:, :, i], [3,3]), np.reshape(p_array_3[:, :, i], [3]), 2, 0.25, ax3)
         # Transform and plot the cuboid at the end of the first constant screw motion:
-        transformed_vertices_inter_3 = hlp.transform_vertices(G_array_3[:, :, i], config.plan_skeleton_1.VERTICES)
-        transformed_faces_3 = hlp.plot_cube(transformed_vertices_inter_3)
+        transformed_vertices_inter_3 = transform_vertices(G_array_3[:, :, i], config.plan_skeleton_1.VERTICES)
+        transformed_faces_3 = plot_cube(transformed_vertices_inter_3)
         ax3.add_collection3d(Poly3DCollection(transformed_faces_3, linewidths=1, facecolors='lightgrey', edgecolors='grey', alpha=.25))
 
     # Intermediate configurations for the second constant screw motion:
     for i in range(R_array_4.shape[2]):
-        ax3 = hlp.plot_reference_frames(np.reshape(R_array_4[:, :, i], [3,3]), np.reshape(p_array_4[:, :, i], [3]), 2, 0.25, ax3)
+        ax3 = plot_reference_frames(np.reshape(R_array_4[:, :, i], [3,3]), np.reshape(p_array_4[:, :, i], [3]), 2, 0.25, ax3)
         # Transform and plot the cuboid at the end of the first constant screw motion:
-        transformed_vertices_inter_4 = hlp.transform_vertices(G_array_4[:, :, i], config.plan_skeleton_1.VERTICES)
-        transformed_faces_4 = hlp.plot_cube(transformed_vertices_inter_4)
+        transformed_vertices_inter_4 = transform_vertices(G_array_4[:, :, i], config.plan_skeleton_1.VERTICES)
+        transformed_faces_4 = plot_cube(transformed_vertices_inter_4)
         ax3.add_collection3d(Poly3DCollection(transformed_faces_4, linewidths=1, facecolors='lightgrey', edgecolors='grey', alpha=.25))
 
     # Plot the cuboid at initial pose:
-    faces = hlp.plot_cube(config.plan_skeleton_1.VERTICES)
+    faces = plot_cube(config.plan_skeleton_1.VERTICES)
     ax3.add_collection3d(Poly3DCollection(faces, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the end of the first constant screw motion:
-    transformed_vertices_inter_1 = hlp.transform_vertices(config.plan_skeleton_1.G_INTER_1, config.plan_skeleton_1.VERTICES)
-    transformed_faces_1 = hlp.plot_cube(transformed_vertices_inter_1)
+    transformed_vertices_inter_1 = transform_vertices(config.plan_skeleton_1.G_INTER_1, config.plan_skeleton_1.VERTICES)
+    transformed_faces_1 = plot_cube(transformed_vertices_inter_1)
     ax3.add_collection3d(Poly3DCollection(transformed_faces_1, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the end of the second constant screw motion:
-    transformed_vertices_inter_2 = hlp.transform_vertices(config.plan_skeleton_1.G_INTER_2, config.plan_skeleton_1.VERTICES)
-    transformed_faces_2 = hlp.plot_cube(transformed_vertices_inter_2)
+    transformed_vertices_inter_2 = transform_vertices(config.plan_skeleton_1.G_INTER_2, config.plan_skeleton_1.VERTICES)
+    transformed_faces_2 = plot_cube(transformed_vertices_inter_2)
     ax3.add_collection3d(Poly3DCollection(transformed_faces_2, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the end of the third constant screw motion:
-    transformed_vertices_inter_3 = hlp.transform_vertices(config.plan_skeleton_1.G_INTER_3, config.plan_skeleton_1.VERTICES)
-    transformed_faces_3 = hlp.plot_cube(transformed_vertices_inter_3)
+    transformed_vertices_inter_3 = transform_vertices(config.plan_skeleton_1.G_INTER_3, config.plan_skeleton_1.VERTICES)
+    transformed_faces_3 = plot_cube(transformed_vertices_inter_3)
     ax3.add_collection3d(Poly3DCollection(transformed_faces_3, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the end of the fourth constant screw motion:
-    transformed_vertices_inter_4 = hlp.transform_vertices(config.plan_skeleton_1.G_INTER_4, config.plan_skeleton_1.VERTICES)
-    transformed_faces_4 = hlp.plot_cube(transformed_vertices_inter_4)
+    transformed_vertices_inter_4 = transform_vertices(config.plan_skeleton_1.G_INTER_4, config.plan_skeleton_1.VERTICES)
+    transformed_faces_4 = plot_cube(transformed_vertices_inter_4)
     ax3.add_collection3d(Poly3DCollection(transformed_faces_4, linewidths=1, edgecolors='b', alpha=.25))
 
     ax3.set_xlabel('X')

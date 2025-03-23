@@ -9,7 +9,9 @@ import func.quaternion_lib as ql
 import config.pivoting_cuboid
 
 # Import helper functions
-import func._helper_functions as hlp
+from func.utils import plot_cube
+from func.utils import plot_reference_frames
+from func.utils import transform_vertices
 
 if __name__ == '__main__':
 
@@ -39,14 +41,14 @@ if __name__ == '__main__':
     ax1.quiver(point[0], point[1], point[2], 2*unit_vector[0], 2*unit_vector[1], 2*unit_vector[2], color = "r", arrow_length_ratio = 0.55)
     
     # Initial configuration:
-    ax1 = hlp.plot_reference_frames(config.pivoting_cuboid.R_INIT, np.reshape(config.pivoting_cuboid.P_INIT, [3]), 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.pivoting_cuboid.R_INIT, np.reshape(config.pivoting_cuboid.P_INIT, [3]), 3, 0.5, ax1)
     
     # Final configuration:
-    ax1 = hlp.plot_reference_frames(config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL, 3, 0.5, ax1)
+    ax1 = plot_reference_frames(config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL, 3, 0.5, ax1)
     
     # Intermediate configurations:
     for i in range(R_array.shape[2]):
-        ax1 = hlp.plot_reference_frames(np.reshape(R_array[:, :, i], [3,3]), np.reshape(p_array[:, :, i], [3]), 2, 0.25, ax1)
+        ax1 = plot_reference_frames(np.reshape(R_array[:, :, i], [3,3]), np.reshape(p_array[:, :, i], [3]), 2, 0.25, ax1)
 
     ax1.set_xlabel('X')
     ax1.set_ylabel('Y')
@@ -61,12 +63,12 @@ if __name__ == '__main__':
     ax2.grid(False)
 
     # Plot the cuboid at initial pose:
-    faces = hlp.plot_cube(config.pivoting_cuboid.VERTICES)
+    faces = plot_cube(config.pivoting_cuboid.VERTICES)
     ax2.add_collection3d(Poly3DCollection(faces, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the final pose:
-    transformed_vertices_final = hlp.transform_vertices(config.pivoting_cuboid.G_FINAL, config.pivoting_cuboid.VERTICES)
-    transformed_faces = hlp.plot_cube(transformed_vertices_final)
+    transformed_vertices_final = transform_vertices(config.pivoting_cuboid.G_FINAL, config.pivoting_cuboid.VERTICES)
+    transformed_faces = plot_cube(transformed_vertices_final)
     ax2.add_collection3d(Poly3DCollection(transformed_faces, linewidths=1, edgecolors='b', alpha=.25))
 
     # Plot the screw axis and the point:
@@ -74,14 +76,14 @@ if __name__ == '__main__':
     ax2.quiver(point[0], point[1], point[2], 2*unit_vector[0], 2*unit_vector[1], 2*unit_vector[2], color = "r", arrow_length_ratio = 0.55)
     
     # Initial configuration:
-    ax2 = hlp.plot_reference_frames(config.pivoting_cuboid.R_INIT, np.reshape(config.pivoting_cuboid.P_INIT, [3]), 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.pivoting_cuboid.R_INIT, np.reshape(config.pivoting_cuboid.P_INIT, [3]), 3, 0.5, ax2)
 
     # Final configuration:
-    ax2 = hlp.plot_reference_frames(config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL, 3, 0.5, ax2)
+    ax2 = plot_reference_frames(config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL, 3, 0.5, ax2)
 
     # Intermediate configurations:
     for i in range(R_array.shape[2]):
-        ax2 = hlp.plot_reference_frames(np.reshape(R_array[:, :, i], [3,3]), np.reshape(p_array[:, :, i], [3]), 2, 0.25, ax2)
+        ax2 = plot_reference_frames(np.reshape(R_array[:, :, i], [3,3]), np.reshape(p_array[:, :, i], [3]), 2, 0.25, ax2)
 
     ax2.set_xlabel('X')
     ax2.set_ylabel('Y')
@@ -100,26 +102,26 @@ if __name__ == '__main__':
     ax3.quiver(point[0], point[1], point[2], 2*unit_vector[0], 2*unit_vector[1], 2*unit_vector[2], color = "r", arrow_length_ratio = 0.55)
     
     # Initial configuration:
-    ax3 = hlp.plot_reference_frames(config.pivoting_cuboid.R_INIT, np.reshape(config.pivoting_cuboid.P_INIT, [3]), 3, 0.5, ax3)
+    ax3 = plot_reference_frames(config.pivoting_cuboid.R_INIT, np.reshape(config.pivoting_cuboid.P_INIT, [3]), 3, 0.5, ax3)
 
     # Final configuration:
-    ax3 = hlp.plot_reference_frames(config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL, 3, 0.5, ax3)
+    ax3 = plot_reference_frames(config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL, 3, 0.5, ax3)
 
     # Intermediate configurations:
     for i in range(R_array.shape[2]):
-        ax3 = hlp.plot_reference_frames(np.reshape(R_array[:, :, i], [3,3]), np.reshape(p_array[:, :, i], [3]), 2, 0.25, ax3)
+        ax3 = plot_reference_frames(np.reshape(R_array[:, :, i], [3,3]), np.reshape(p_array[:, :, i], [3]), 2, 0.25, ax3)
         # Transformed vertices corresponding to the intermediate configurations:
-        transformed_vertices_final = hlp.transform_vertices(G_array[:, :, i], config.pivoting_cuboid.VERTICES)
-        transformed_faces = hlp.plot_cube(transformed_vertices_final)
+        transformed_vertices_final = transform_vertices(G_array[:, :, i], config.pivoting_cuboid.VERTICES)
+        transformed_faces = plot_cube(transformed_vertices_final)
         ax3.add_collection3d(Poly3DCollection(transformed_faces, linewidths=1, facecolors='lightgrey', edgecolors='grey', alpha=.25))
 
     # Plot the cuboid at initial pose:
-    faces = hlp.plot_cube(config.pivoting_cuboid.VERTICES)
+    faces = plot_cube(config.pivoting_cuboid.VERTICES)
     ax3.add_collection3d(Poly3DCollection(faces, linewidths=1, edgecolors='b', alpha=.25))
 
     # Transform and plot the cuboid at the final pose:
-    transformed_vertices_final = hlp.transform_vertices(config.pivoting_cuboid.G_FINAL, config.pivoting_cuboid.VERTICES)
-    transformed_faces = hlp.plot_cube(transformed_vertices_final)
+    transformed_vertices_final = transform_vertices(config.pivoting_cuboid.G_FINAL, config.pivoting_cuboid.VERTICES)
+    transformed_faces = plot_cube(transformed_vertices_final)
     ax3.add_collection3d(Poly3DCollection(transformed_faces, linewidths=1, edgecolors='b', alpha=.25))
 
     ax3.set_xlabel('X')
