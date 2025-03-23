@@ -19,16 +19,16 @@ class unit_quaternion:
         self.rotm = None
 
     def quat_to_rotm(self):
-        '''
-        Function to convert a quaternion to a rotation matrix
-        '''
+        """
+        Function to convert a quaternion to a rotation matrix.
+        """
         if self.quat.shape == [1,4]:
             r = R.from_quat(self.quat, scalar_first=True)
             self.rotm = r.as_matrix()
     
     def conjugate_quat(self):
-        '''
+        """
         Function to compute the conjugate of a quaternion.
-        '''
+        """
         if self.quat.shape == [1,4]:
             self.conj_quat = np.reshape(np.append(self.q_0, self.q_r+0.0), [1,4])

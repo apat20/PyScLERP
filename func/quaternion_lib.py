@@ -7,13 +7,13 @@ from scipy.spatial.transform import Rotation as R
 
 
 def skew_symmetric(p):
-    '''
-    Function to compute the skew symmetric matrix of a vector
+    """
+    Function to compute the skew symmetric matrix of a vector.
 
-    Input Args: 
+    Args: 
     
     Returns:
-    '''
+    """
     if p.shape == (3,1):
         p_hat = np.asarray([[0, float(-p[2]), float(p[1])],
                             [float(p[2]), 0,  float(-p[0])],
@@ -23,38 +23,38 @@ def skew_symmetric(p):
     return p_hat
 
 def inverse_trans_mat(mat):
-    '''
-    Function to compute the inverse of a transformation matrix (element of SE(3))
+    """
+    Function to compute the inverse of a transformation matrix (element of SE(3)).
 
-    Input Args: 
+    Args: 
     
     Returns:
-    '''
+    """
     inv_mat = np.eye(4)
     inv_mat[0:3, 0:3] = mat[0:3, 0:3].T
     inv_mat[0:3, 3] = -np.dot(inv_mat[0:3, 0:3], mat[0:3, 3])
     return inv_mat+0.0
 
 def rot_to_axis_angle(rot):
-    '''
-    Function to compute the axis angle representation given a rotation matrix
+    """
+    Function to compute the axis angle representation given a rotation matrix.
 
-    Input Args:
+    Args:
 
     Returns:
 
-    '''
+    """
     return None
 
 def axis_angle_to_rot(axis, angle):
-    '''
+    """
     Function to get a rotation matrix given an axis and a angle
 
-    Input Args:
+    Args:
 
     Returns:
 
-    '''
+    """
     axis = axis/la.norm(axis)
 
     omega = np.asarray([[0, -axis[2], axis[1]],
@@ -65,28 +65,28 @@ def axis_angle_to_rot(axis, angle):
     return R
 
 def quat_to_rotm(quat):
-    '''
-    Function to convert a quaternion to a rotation matrix
+    """
+    Function to convert a quaternion to a rotation matrix.
 
-    Input Args: 
+    Args: 
         A 1x4 unit quaternion (w, x, y, z)
     
     Returns:
         A 3x3 rotation matrix (element of SO(3))
-    '''
+    """
     r = R.from_quat(quat, scalar_first=True)
     return r.as_matrix()
 
 def quat_to_tranform(unit_dual_quat):
-    '''
-    Function to convert a unit dual quaternion into a 4x4 transformation matrix (element of SE(3))
+    """
+    Function to convert a unit dual quaternion into a 4x4 transformation matrix (element of SE(3)).
 
-    Input Args: 
+    Args: 
         A 1x8 unit dual quaternion 
     
     Returns:
         A tuple of a 3x3 rotation matrix and a 1x3 position vector
-    '''
+    """
     quat_r = unit_dual_quat[:, 0:4]
     quat_d = unit_dual_quat[:, 4:9]
     rotm = quat_to_rotm(quat_r)
@@ -96,15 +96,15 @@ def quat_to_tranform(unit_dual_quat):
 
 
 def conjugate_quat(quat):
-    '''
+    """
     Function to compute the conjugate of a quaternion.
 
-    Input Args: 
-        A 1x4 dimension of quaternion
+    Args: 
+        A 1x4 dimension of quaternion.
     
     Returns:
-        A 1x4 quaternion conjugate
-    '''
+        A 1x4 quaternion conjugate.
+    """
     quat = np.reshape(quat, [1,4])
     q_0 = quat[:, 0]
     q_r = np.multiply(quat[:, 1:4], -1)
@@ -112,15 +112,15 @@ def conjugate_quat(quat):
 
 
 def conjugate_dual_quat(dual_quat):
-    '''
-    Function to compute conjugate of a unit dual quaternion
+    """
+    Function to compute conjugate of a unit dual quaternion.
 
-    Input Args: 
-        A 1x8 unit dual quaternion
+    Args: 
+        A 1x8 unit dual quaternion.
     
     Returns:
-        A 1x8 conjugate of a unit dual quaternion
-    '''
+        A 1x8 conjugate of a unit dual quaternion.
+    """
     if dual_quat.shape[1] == 8:
         dual_quat_star = np.asarray([dual_quat[:, 0], -dual_quat[:, 1], -dual_quat[:, 2], -dual_quat[:, 3],
                                 dual_quat[:, 4], -dual_quat[:, 5], -dual_quat[:, 6], -dual_quat[:, 7]]) + 0
@@ -130,15 +130,15 @@ def conjugate_dual_quat(dual_quat):
 
 
 def quat_prod(quat_1, quat_2):
-    '''
+    """
     Function to compute product of two unit quaternions.
     
-    Input Args: 
-        Two 1x4 unit quaternions
+    Args: 
+        Two 1x4 unit quaternions.
     
     Returns:
-        A 1x4 unit quaternion
-    '''
+        A 1x4 unit quaternion.
+    """
     if quat_1.shape[1] and quat_2.shape[1] == 4:
         a_0 = quat_1[:, 0]
         b_0 = quat_2[:, 0]
@@ -153,15 +153,15 @@ def quat_prod(quat_1, quat_2):
 
 
 def dual_quat_prod(quat_1, quat_2):
-    '''
-    Function to compute dual quaternion product
+    """
+    Function to compute dual quaternion product.
 
-    Input Args: 
-        Two 1x8 unit dual quaternions
+    Args: 
+        Two 1x8 unit dual quaternions.
 
     Returns:
-        A 1x8 unit dual quaternion
-    '''
+        A 1x8 unit dual quaternion.
+    """
     p = quat_1[:, 0:4]
     q = quat_1[:, 4:9]
     u = quat_2[:, 0:4]
@@ -171,29 +171,29 @@ def dual_quat_prod(quat_1, quat_2):
 
 
 def get_screw_params(g):
-    '''
-    Function to compute the screw parameters given 
-    '''
-    return None
+    """
+    Function to compute the screw parameters given. 
+    """
+    pass
 
 
 def get_screw_params(g_init, g_final):
-    '''
-    Function to compute the screw parameters given two poses
+    """
+    Function to compute the screw parameters given two poses.
 
-    Input Args: 
-        Two 4x4 poses in SE(3)
+    Args: 
+        Two 4x4 poses in SE(3).
 
     Returns:
         A list containing the following parameters:
-            theta: Magnitude of screw motion
-            point: A point on the screw axis
-            u: Direction of the screw axis
-            pitch: Pitch of the screw
-            m: Moment of the screw
-            d: Magnitude of displacement along the screw
-            p_vect: Translation vector
-    '''
+            theta: Magnitude of screw motion.
+            point: A point on the screw axis.
+            u: Direction of the screw axis.
+            pitch: Pitch of the screw.
+            m: Moment of the screw.
+            d: Magnitude of displacement along the screw.
+            p_vect: Translation vector.
+    """
     # Initial pose:
     R_init, p_init = g_init[0:3, 0:3], g_init[0:3, 3]
     
@@ -224,10 +224,10 @@ def get_screw_params(g_init, g_final):
 
 
 def get_screw_params_dual_quat(unit_dual_quat):
-    '''
+    """
     Function to compute screw parameters given a unit dual quaternion corresponding to a relative transformation.
     
-    Input Args: 
+    Args: 
         A 1x8 unit dual quaternion
 
     Returns:
@@ -239,7 +239,7 @@ def get_screw_params_dual_quat(unit_dual_quat):
             m: Moment of the screw
             d: Magnitude of displacement along the screw
             p_vect: Translation vector
-    '''
+    """
 
     # Extracting the real part of the unit dual quaternion:
     quat_r = unit_dual_quat[:, 0:4]
@@ -278,14 +278,14 @@ def get_screw_params_dual_quat(unit_dual_quat):
 
 
 def sclerp(R_init, p_init, R_final, p_final):
-    '''
-    Function to perform screw linear interpolation given unit dual quaternion representation of two poses in SE(3)
+    """
+    Function to perform screw linear interpolation given unit dual quaternion representation of two poses in SE(3).
 
-    Input Args: 
+    Args: 
     
     Returns:
     
-    '''
+    """
     # Initial pose:
     g_init = np.eye(4,4)
     g_init[0:3, 0:3] = R_init
