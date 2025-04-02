@@ -11,8 +11,10 @@ def skew_symmetric(p):
     Function to compute the skew symmetric matrix of a vector.
 
     Args: 
+        A 3x1 vector
     
     Returns:
+        A 3x3 matrix
     """
     if p.shape == (3,1):
         p_hat = np.asarray([[0, float(-p[2]), float(p[1])],
@@ -27,8 +29,10 @@ def inverse_trans_mat(mat):
     Function to compute the inverse of a transformation matrix (element of SE(3)).
 
     Args: 
+        A 4x4 matrix, element of SE(3)
     
     Returns:
+        A 4x4 matrix, element of SE(3)
     """
     inv_mat = np.eye(4)
     inv_mat[0:3, 0:3] = mat[0:3, 0:3].T
