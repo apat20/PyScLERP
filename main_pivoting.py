@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     # Screw linear interpolation between a pair of initial and final pose:
     [R_array, p_array, C_array, G_array, screw_params] = ql.sclerp(config.pivoting_cuboid.R_INIT, config.pivoting_cuboid.P_INIT, 
-                                                          config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL)
+                                                          config.pivoting_cuboid.R_FINAL, config.pivoting_cuboid.P_FINAL, tau=0.1)
 
     # Extracting the screw parameters:
     # NOTE: The screw parameters are always computed with respect to the initial configuration given as input to ScLERP.

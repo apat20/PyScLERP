@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     # Computing the intermediate configurations using screw linear interpolation for the first constant screw motion:
     [R_array_1, p_array_1, C_array_1, G_array_1, screw_params_1] = ql.sclerp(config.plan_skeleton_1.R_INIT, config.plan_skeleton_1.P_INIT, 
-                                                          config.plan_skeleton_1.R_INTER_1, config.plan_skeleton_1.P_INTER_1)
+                                                          config.plan_skeleton_1.R_INTER_1, config.plan_skeleton_1.P_INTER_1, tau=0.1)
 
     # Extracting the screw parameters:
     # NOTE: The screw parameters are always computed with respect to the initial configuration given as input to ScLERP.
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     # Computing the intermediate configurations using screw linear interpolation for the second constant screw motion:
     [R_array_2, p_array_2, C_array_2, G_array_2, screw_params_2] = ql.sclerp(config.plan_skeleton_1.R_INTER_1, config.plan_skeleton_1.P_INTER_1, 
-                                                          config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2)
+                                                          config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2, tau=0.1)
 
     # Extracting the screw parameters:
     # NOTE: The screw parameters are always computed with respect to the initial configuration given as input to ScLERP.
@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     # Computing the intermediate configurations using screw linear interpolation for the third constant screw motion:
     [R_array_3, p_array_3, C_array_3, G_array_3, screw_params_3] = ql.sclerp(config.plan_skeleton_1.R_INTER_2, config.plan_skeleton_1.P_INTER_2, 
-                                                          config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3)
+                                                          config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3, tau=0.1)
 
     # Extracting the screw parameters:
     # NOTE: The screw parameters are always computed with respect to the initial configuration given as input to ScLERP.
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     # Computing the intermediate configurations using screw linear interpolation for the fourth constant screw motion:
     [R_array_4, p_array_4, C_array_4, G_array_4, screw_params_4] = ql.sclerp(config.plan_skeleton_1.R_INTER_3, config.plan_skeleton_1.P_INTER_3, 
-                                                          config.plan_skeleton_1.R_INTER_4, config.plan_skeleton_1.P_INTER_4)
+                                                          config.plan_skeleton_1.R_INTER_4, config.plan_skeleton_1.P_INTER_4, tau=0.1)
 
     # Extracting the screw parameters:
     # NOTE: The screw parameters are always computed with respect to the initial configuration given as input to ScLERP.
